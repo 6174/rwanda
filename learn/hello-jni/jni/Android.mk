@@ -13,5 +13,8 @@ LOCAL_MODULE    := hello-jni
 # list of source files that will be built and assembled 
 LOCAL_SRC_FILES := hello-jni.c
 
+# its adding an android library to the make file 
+LOCAL_LDLIBS := -llog
+
 # contains the necessary build procedure to build and assemble source files as a shared library
 include $(BUILD_SHARED_LIBRARY)
