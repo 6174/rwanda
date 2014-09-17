@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C8FE451B-6546-410D-87B6-5C74525D5937</string>
+	<key>IDESourceControlProjectName</key>
+	<string>rwanda</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B67836F6-DD46-426B-9774-68BB86EEC28B</key>
+		<string>https://github.com/6174/rwanda</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>source/rwanda/rwanda.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B67836F6-DD46-426B-9774-68BB86EEC28B</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/6174/rwanda</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B67836F6-DD46-426B-9774-68BB86EEC28B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B67836F6-DD46-426B-9774-68BB86EEC28B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>rwanda</string>
+		</dict>
+	</array>
+</dict>
+</plist>
