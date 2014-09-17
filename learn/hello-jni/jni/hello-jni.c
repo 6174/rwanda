@@ -54,8 +54,7 @@
  *  操作引用类型: Strings, Arrays, NIO Buffers Fields, Methods
  */
 jstring
-Java_com_rwanda_hellojni_HelloJni_stringFromJNI( JNIEnv* env, jobject context)
-{
+Java_com_rwanda_hellojni_HelloJni_stringFromJNI( JNIEnv* env, jobject context) {
 	// javaString
 	jstring javaString;
 	// 如果出现异常情况，会返回null
@@ -74,6 +73,52 @@ Java_com_rwanda_hellojni_HelloJni_stringFromJNI( JNIEnv* env, jobject context)
     	}
     }
 
-    (*env)->ReleaseStringUTFChars(env, javaString, str);
+    // array
+    jintArray javaArray;
+    // New<type>Array
+    javaArray = (*env)->NewIntArray(env, 10);
+
+    // Accessing java array elements in two ways
+    if (0 != javaArray) {
+    	// 1. operating on a copy
+    	jint nativeArray[10];
+    	// copy to c array
+    	(*env)->GetIntArrayRegion(env, javaArray, 0, 10, nativeArray);
+    	nativeArray[1] = 10;
+    	LOGD("native array 1%d", nativeArray[1]);
+    	// commting changes from c array to java array
+    	(*env)->SetIntArrayRegion(env, javaArray, 0, 10, nativeArray);
+
+    	// 2. operating on direct pointer, use it like c array pointer
+    	jint* nativeDirectArray;
+    	jboolean isCopy;
+    	nativeDirectArray = (*env)->GetIntArrayElements(env, javaArray, &isCopy);
+    	// release pointer,
+    	// 0 -> rlease mode
+    	// 0 -> copy back the content and free the native array
+    	// JNI_COMMIT -> copy back the content but not free the native array
+    	// JNI_ABORT  -> free the native array without copying its content
+    	(*env)->ReleaseIntArrayElements(env, javaArray, nativeDirectArray, 0);
+    }
+
+//    // accessing fields
+//    jclass clazz;
+//    clazz = (*env)->GetObjectClass(env, context);
+//
+//    jfieldID instanceFieldId;
+//    instanceFieldId = (*env)->GetFieldID(env, clazz, "instanceField", "Ljava/lang/String");
+//    LOGD("filedId %c", (*env)->GetCharField(env, context, instanceFieldId));
+//
+//    (*env)->ReleaseStringUTFChars(env, javaString, str);
     return javaString;
 }
+
+
+
+
+
+
+
+
+
+

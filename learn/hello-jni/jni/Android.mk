@@ -11,7 +11,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE    := hello-jni
 
 # list of source files that will be built and assembled 
-LOCAL_SRC_FILES := hello-jni.c
+LOCAL_SRC_FILES := hello-jni.c Unix_wrap.c
 
 # its adding an android library to the make file 
 LOCAL_LDLIBS := -llog

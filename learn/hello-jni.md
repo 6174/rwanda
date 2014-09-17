@@ -12,3 +12,12 @@
 4. javah 配置 
     1.  javah -classpath bin/classes:{$ANDROID_SDK_HOME}/platforms/android20/android.jar  -d jni com.rwanda.hellojni.HelloJni 这样是不行的
     2. 直接cd到src目录，  javah -d ../jni com.rwanda.hellojni.HelloJni 
+
+5. 使用swig来生成jni 
+ ```shell 
+    brew install swig
+    swig -java -package com.apress.swig -outdir src/com/apress/swig jni/Unix.i
+ ```
+ 
+ swig java文档： http://www.swig.org/Doc2.0/Java.html
+ swig android文档： http://www.swig.org/Doc2.0/Android.html

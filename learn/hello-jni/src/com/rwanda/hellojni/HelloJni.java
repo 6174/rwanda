@@ -1,11 +1,16 @@
 package com.rwanda.hellojni;
 
+import com.apress.swig.UnixJNI;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 public class HelloJni extends Activity {
+	private String instanceField = "Instance Field";
+	private UnixJNI jni;
+	private static String staticField = "static Field";
     /**
      * Called when the activity is first created.
      */
@@ -13,15 +18,14 @@ public class HelloJni extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.main);
-        Log.i("helloJni","on Create");
+        Log.i("rwanda","on Create");
         TextView $str = new TextView(this);
         $str.setText( stringFromJNI());
         setContentView($str);
+        jni = new UnixJNI();
+        int g = jni.gcd(42, 105);
+        Log.i("rwanda", "42, 105 gcd is: " + g );
     }
-//
-//    public String stringFromJNI() {
-//        return "Hello from javaadf";
-//    }
 
     public native String  stringFromJNI();
 
