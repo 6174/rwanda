@@ -39,7 +39,7 @@ void tokenHtml(const tstring& str) {
 }
 
 void scanHTML() {
-    char* str = "<html><body><p align=right dir='rtl'>Begin &amp; back</p><a href=http://terrainformatica.com/index.php?a=1&b=2>link</a></body></html>";
+    char* str = "<html><body><p align=right dir='rtl'>Begin &amp;<style>#body{width: 100px;} .a-class{float:left;}</style> back</p><a href=http://terrainformatica.com/index.php?a=1&b=2>link</a></body></html>";
     litehtml::Document* document = new litehtml::Document();
     document->createFromString(str);
 }

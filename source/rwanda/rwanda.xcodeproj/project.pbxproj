@@ -12,6 +12,8 @@
 		841B58D919C9860A00103CE4 /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58D419C9860A00103CE4 /* tokenizer.cpp */; };
 		841B58DA19C9860A00103CE4 /* xml_scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58D619C9860A00103CE4 /* xml_scanner.cpp */; };
 		841B58E219C9AB6500103CE4 /* document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58DB19C9AB6500103CE4 /* document.cpp */; };
+		841B58E819C9DA1200103CE4 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58E719C9DA1200103CE4 /* node.cpp */; };
+		841B58EC19C9E05000103CE4 /* elementNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58EB19C9E05000103CE4 /* elementNode.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +41,10 @@
 		841B58D819C9860A00103CE4 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		841B58DB19C9AB6500103CE4 /* document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = document.cpp; sourceTree = "<group>"; };
 		841B58DC19C9AB6500103CE4 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		841B58E619C9D9FF00103CE4 /* node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
+		841B58E719C9DA1200103CE4 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
+		841B58EA19C9E03C00103CE4 /* elementNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = elementNode.h; sourceTree = "<group>"; };
+		841B58EB19C9E05000103CE4 /* elementNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = elementNode.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,18 +77,16 @@
 		841B58C819C9859000103CE4 /* rwanda */ = {
 			isa = PBXGroup;
 			children = (
-				841B58DB19C9AB6500103CE4 /* document.cpp */,
-				841B58DC19C9AB6500103CE4 /* document.h */,
-				841B58D219C9860A00103CE4 /* object.h */,
-				841B58D319C9860A00103CE4 /* parser */,
-				841B58D819C9860A00103CE4 /* types.h */,
+				841B58E919C9DADB00103CE4 /* base */,
+				841B58E519C9D9DF00103CE4 /* dom */,
+				841B58D319C9860A00103CE4 /* xml */,
 				841B58C919C9859000103CE4 /* main.cpp */,
 				841B58CB19C9859000103CE4 /* rwanda.1 */,
 			);
 			path = rwanda;
 			sourceTree = "<group>";
 		};
-		841B58D319C9860A00103CE4 /* parser */ = {
+		841B58D319C9860A00103CE4 /* xml */ = {
 			isa = PBXGroup;
 			children = (
 				841B58D419C9860A00103CE4 /* tokenizer.cpp */,
@@ -90,7 +94,30 @@
 				841B58D619C9860A00103CE4 /* xml_scanner.cpp */,
 				841B58D719C9860A00103CE4 /* xml_scanner.h */,
 			);
+			name = xml;
 			path = parser;
+			sourceTree = "<group>";
+		};
+		841B58E519C9D9DF00103CE4 /* dom */ = {
+			isa = PBXGroup;
+			children = (
+				841B58DB19C9AB6500103CE4 /* document.cpp */,
+				841B58DC19C9AB6500103CE4 /* document.h */,
+				841B58E619C9D9FF00103CE4 /* node.h */,
+				841B58E719C9DA1200103CE4 /* node.cpp */,
+				841B58EA19C9E03C00103CE4 /* elementNode.h */,
+				841B58EB19C9E05000103CE4 /* elementNode.cpp */,
+			);
+			name = dom;
+			sourceTree = "<group>";
+		};
+		841B58E919C9DADB00103CE4 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				841B58D219C9860A00103CE4 /* object.h */,
+				841B58D819C9860A00103CE4 /* types.h */,
+			);
+			name = base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,7 +173,9 @@
 			files = (
 				841B58E219C9AB6500103CE4 /* document.cpp in Sources */,
 				841B58CA19C9859000103CE4 /* main.cpp in Sources */,
+				841B58EC19C9E05000103CE4 /* elementNode.cpp in Sources */,
 				841B58D919C9860A00103CE4 /* tokenizer.cpp in Sources */,
+				841B58E819C9DA1200103CE4 /* node.cpp in Sources */,
 				841B58DA19C9860A00103CE4 /* xml_scanner.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
