@@ -9,15 +9,18 @@
 #include <iostream>
 #include <vector>
 #include "tokenizer.h"
+#include "document.h"
 
-void parseHtml(const tstring &);
+void tokenHtml(const tstring &);
+void scanHTML();
 int main() {
 	tstring str = "<div>\n<a href=""></a>\n</div>";
-	parseHtml(str);
+	tokenHtml(str);
+	scanHTML();
 	return 0;
 }
 
-void parseHtml(const tstring& str) {
+void tokenHtml(const tstring& str) {
 	std::cout << str
     << _t("\"")
     << std::endl;
@@ -33,4 +36,10 @@ void parseHtml(const tstring& str) {
 	for(int i = 0; i < result.size(); i ++) {
         std::cout << "=== " << result[i] << std::endl;
 	}
+}
+
+void scanHTML() {
+    char* str = "<html><body><p align=right dir='rtl'>Begin &amp; back</p><a href=http://terrainformatica.com/index.php?a=1&b=2>link</a></body></html>";
+    litehtml::Document* document = new litehtml::Document();
+    document->createFromString(str);
 }

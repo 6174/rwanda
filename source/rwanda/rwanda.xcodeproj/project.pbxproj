@@ -10,7 +10,8 @@
 		841B58CA19C9859000103CE4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58C919C9859000103CE4 /* main.cpp */; };
 		841B58CC19C9859000103CE4 /* rwanda.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 841B58CB19C9859000103CE4 /* rwanda.1 */; };
 		841B58D919C9860A00103CE4 /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58D419C9860A00103CE4 /* tokenizer.cpp */; };
-		841B58DA19C9860A00103CE4 /* xml_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58D619C9860A00103CE4 /* xml_parser.cpp */; };
+		841B58DA19C9860A00103CE4 /* xml_scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58D619C9860A00103CE4 /* xml_scanner.cpp */; };
+		841B58E219C9AB6500103CE4 /* document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58DB19C9AB6500103CE4 /* document.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,9 +34,11 @@
 		841B58D219C9860A00103CE4 /* object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object.h; sourceTree = "<group>"; };
 		841B58D419C9860A00103CE4 /* tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tokenizer.cpp; sourceTree = "<group>"; };
 		841B58D519C9860A00103CE4 /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
-		841B58D619C9860A00103CE4 /* xml_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_parser.cpp; sourceTree = "<group>"; };
-		841B58D719C9860A00103CE4 /* xml_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xml_parser.h; sourceTree = "<group>"; };
+		841B58D619C9860A00103CE4 /* xml_scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_scanner.cpp; sourceTree = "<group>"; };
+		841B58D719C9860A00103CE4 /* xml_scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xml_scanner.h; sourceTree = "<group>"; };
 		841B58D819C9860A00103CE4 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		841B58DB19C9AB6500103CE4 /* document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = document.cpp; sourceTree = "<group>"; };
+		841B58DC19C9AB6500103CE4 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 		841B58C819C9859000103CE4 /* rwanda */ = {
 			isa = PBXGroup;
 			children = (
+				841B58DB19C9AB6500103CE4 /* document.cpp */,
+				841B58DC19C9AB6500103CE4 /* document.h */,
 				841B58D219C9860A00103CE4 /* object.h */,
 				841B58D319C9860A00103CE4 /* parser */,
 				841B58D819C9860A00103CE4 /* types.h */,
@@ -82,8 +87,8 @@
 			children = (
 				841B58D419C9860A00103CE4 /* tokenizer.cpp */,
 				841B58D519C9860A00103CE4 /* tokenizer.h */,
-				841B58D619C9860A00103CE4 /* xml_parser.cpp */,
-				841B58D719C9860A00103CE4 /* xml_parser.h */,
+				841B58D619C9860A00103CE4 /* xml_scanner.cpp */,
+				841B58D719C9860A00103CE4 /* xml_scanner.h */,
 			);
 			path = parser;
 			sourceTree = "<group>";
@@ -139,9 +144,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841B58E219C9AB6500103CE4 /* document.cpp in Sources */,
 				841B58CA19C9859000103CE4 /* main.cpp in Sources */,
 				841B58D919C9860A00103CE4 /* tokenizer.cpp in Sources */,
-				841B58DA19C9860A00103CE4 /* xml_parser.cpp in Sources */,
+				841B58DA19C9860A00103CE4 /* xml_scanner.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
