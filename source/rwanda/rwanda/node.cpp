@@ -8,9 +8,11 @@
 
 #include "node.h"
 
-litehtml::Node::Node(){
+litehtml::Node::Node()
+{
 }
 
-litehtml::Node::~Node(){
+litehtml::Node::~Node()
+{
 }
 

@@ -14,6 +14,7 @@
 		841B58E219C9AB6500103CE4 /* document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58DB19C9AB6500103CE4 /* document.cpp */; };
 		841B58E819C9DA1200103CE4 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58E719C9DA1200103CE4 /* node.cpp */; };
 		841B58EC19C9E05000103CE4 /* elementNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841B58EB19C9E05000103CE4 /* elementNode.cpp */; };
+		84CD53B019CA7E0F0074184E /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84CD53AF19CA7E0F0074184E /* util.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,8 @@
 		841B58E719C9DA1200103CE4 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		841B58EA19C9E03C00103CE4 /* elementNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = elementNode.h; sourceTree = "<group>"; };
 		841B58EB19C9E05000103CE4 /* elementNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = elementNode.cpp; sourceTree = "<group>"; };
+		84CD53AE19CA7DAD0074184E /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		84CD53AF19CA7E0F0074184E /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,8 @@
 			children = (
 				841B58D219C9860A00103CE4 /* object.h */,
 				841B58D819C9860A00103CE4 /* types.h */,
+				84CD53AE19CA7DAD0074184E /* util.h */,
+				84CD53AF19CA7E0F0074184E /* util.cpp */,
 			);
 			name = base;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 			files = (
 				841B58E219C9AB6500103CE4 /* document.cpp in Sources */,
 				841B58CA19C9859000103CE4 /* main.cpp in Sources */,
+				84CD53B019CA7E0F0074184E /* util.cpp in Sources */,
 				841B58EC19C9E05000103CE4 /* elementNode.cpp in Sources */,
 				841B58D919C9860A00103CE4 /* tokenizer.cpp in Sources */,
 				841B58E819C9DA1200103CE4 /* node.cpp in Sources */,

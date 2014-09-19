@@ -9,11 +9,10 @@
 
 #include <stdlib.h> // wchar_t
 #include <string.h> // strcmp, etc.
+#include "types.h"
 
 namespace litehtml
 {
-  typedef wchar_t wchar;
-
   struct instream 
   {
     virtual wchar get_char() = 0;
@@ -28,14 +27,14 @@ namespace litehtml
       TT_ERROR = -1,
       TT_EOF = 0,
 
-      TT_TAG_START,   // <tag ...
-                      //     ^-- happens here
-      TT_TAG_END,     // </tag>
-                      //       ^-- happens here 
-                      // <tag ... />
-                      //            ^-- or here 
-      TT_ATTR,        // <tag attr="value" >      
-                      //                  ^-- happens here   
+      TT_TAG_START,      // <tag ...
+                         //     ^-- happens here
+      TT_TAG_END,        // </tag>
+                         //       ^-- happens here
+      TT_TAG_END_EMPTY,  // <tag ... />
+                         //            ^-- or here
+      TT_ATTR,           // <tag attr="value" >
+                         //                  ^-- happens here
       TT_WORD,
       TT_SPACE,
 

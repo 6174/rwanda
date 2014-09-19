@@ -13,33 +13,37 @@
 
 void tokenHtml(const tstring &);
 void scanHTML();
-int main() {
-	tstring str = "<div>\n<a href=""></a>\n</div>";
-	tokenHtml(str);
-	scanHTML();
-	return 0;
+int main()
+{
+    tstring str = "<div>\n<a href=""></a>\n</div>";
+    tokenHtml(str);
+    scanHTML();
+    return 0;
 }
 
-void tokenHtml(const tstring& str) {
-	std::cout << str
-    << _t("\"")
-    << std::endl;
-    
-	std::vector<tstring> result;
-	tstring delimeter = _t("\n<>");
-	tstring delimeter_preserve = _t("");
-	tstring quote = _t("\"\'");
-	tstring esc = _t("\\");
-	litehtml::tokenize(str, result, delimeter, delimeter_preserve, quote, esc);
-    
+void tokenHtml(const tstring &str)
+{
+    std::cout << str
+              << _t("\"")
+              << std::endl;
+
+    std::vector<tstring> result;
+    tstring delimeter = _t("\n<>");
+    tstring delimeter_preserve = _t("");
+    tstring quote = _t("\"\'");
+    tstring esc = _t("\\");
+    litehtml::tokenize(str, result, delimeter, delimeter_preserve, quote, esc);
+
     std::cout << result.size() << std::endl;
-	for(int i = 0; i < result.size(); i ++) {
+    for (int i = 0; i < result.size(); i ++)
+    {
         std::cout << "=== " << result[i] << std::endl;
-	}
+    }
 }
 
-void scanHTML() {
-    char* str = "<html><body><p align=right dir='rtl'>Begin &amp;<style>#body{width: 100px;} .a-class{float:left;}</style> back</p><a href=http://terrainformatica.com/index.php?a=1&b=2>link</a></body></html>";
-    litehtml::Document* document = new litehtml::Document();
+void scanHTML()
+{
+    char *str = "<html><body><p align=right dir='rtl'>Begin &amp;<style>#body{width: 100px;} .a-class{float:left;}</style> back</p> <img src='httP://asdfa.com'/> <a href=http://terrainformatica.com/index.php?a=1&b=2>link</a></body></html>";
+    litehtml::Document *document = new litehtml::Document();
     document->createFromString(str);
 }

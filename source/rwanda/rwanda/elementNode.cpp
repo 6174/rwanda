@@ -11,8 +11,9 @@
 /**
  * 构造函数
  */
-litehtml::ElementNode::ElementNode(int id, char* tagName) {
-    this->m_id = id;
+litehtml::ElementNode::ElementNode(char* guid,char *tagName)
+{
+    this->m_id = guid;
     this->nodeName = tagName;
     this->nodeType = Node::ELEMENT_NODE;
 }
@@ -20,35 +21,40 @@ litehtml::ElementNode::ElementNode(int id, char* tagName) {
 /**
  * 析构函数
  */
-litehtml::ElementNode::~ElementNode(){
-    
+litehtml::ElementNode::~ElementNode()
+{
+
 }
 
 /**
  * 获取父亲节点
  */
-litehtml::Node* litehtml::ElementNode::parentNode() {
+litehtml::Node *litehtml::ElementNode::parentNode()
+{
     return m_parentNode;
 }
 
 /**
  * 设置父亲节点
  */
-void litehtml::ElementNode::parentNode(litehtml::Node* node) {
+void litehtml::ElementNode::parentNode(litehtml::Node *node)
+{
     m_parentNode = node;
 }
 
 /**
  * 添加child
  */
-void litehtml::ElementNode::appendChild(litehtml::Node* node) {
+void litehtml::ElementNode::appendChild(litehtml::Node *node)
+{
     this->m_children.push_back(node);
 }
 
 /**
  * 得到 children
  */
-litehtml::Node::NodeVector& litehtml::ElementNode::children() {
+litehtml::Node::NodeVector &litehtml::ElementNode::children()
+{
     return m_children;
 }
 

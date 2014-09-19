@@ -1,97 +1,114 @@
 #pragma once
-namespace litehtml {
-	class Object {
-	protected:
-		int	m_refCount;
-	public:
-		Object() {
-			m_refCount = 0;
-		}
-		virtual ~Object() {
+namespace litehtml
+{
+class Object
+{
+protected:
+    int m_refCount;
+public:
+    Object()
+    {
+        m_refCount = 0;
+    }
+    virtual ~Object()
+    {
 
-		}
+    }
 
-		void addRef() {
-			m_refCount++;
-		}
-		
-		void release() {
-			if(!(--m_refCount)) delete this;
-		}
-	};
+    void addRef()
+    {
+        m_refCount++;
+    }
 
-	template<class T> 
-	class ObjectPtr {
-		T*	m_ptr;
-	public:
-		ObjectPtr() {
-			m_ptr = 0;
-		}
+    void release()
+    {
+        if (!(--m_refCount)) delete this;
+    }
+};
 
-		ObjectPtr(T* ptr) {
-			m_ptr = ptr;
-			if(m_ptr)
-			{
-				m_ptr->addRef();
-			}
-		}
+template<class T>
+class ObjectPtr
+{
+    T  *m_ptr;
+public:
+    ObjectPtr()
+    {
+        m_ptr = 0;
+    }
 
-		ObjectPtr(const ObjectPtr<T>& val) {
-			m_ptr = val.m_ptr;
-			if(m_ptr)
-			{
-				m_ptr->addRef();
-			}
-		}
+    ObjectPtr(T *ptr)
+    {
+        m_ptr = ptr;
+        if (m_ptr)
+        {
+            m_ptr->addRef();
+        }
+    }
 
-		~ObjectPtr() {
-			if(m_ptr)
-			{
-				m_ptr->release();
-			}
-			m_ptr = 0;
-		}
+    ObjectPtr(const ObjectPtr<T> &val)
+    {
+        m_ptr = val.m_ptr;
+        if (m_ptr)
+        {
+            m_ptr->addRef();
+        }
+    }
 
-		void operator=(const ObjectPtr<T>& val) {
-			T* oldPtr = m_ptr;
-			m_ptr = val.m_ptr;
-			if(m_ptr)
-			{
-				m_ptr->addRef();
-			}
-			if(oldPtr)
-			{
-				oldPtr->release();
-			}
-		}
+    ~ObjectPtr()
+    {
+        if (m_ptr)
+        {
+            m_ptr->release();
+        }
+        m_ptr = 0;
+    }
 
-		void operator=(T* val) {
-			T* oldPtr = m_ptr;
-			m_ptr = val;
-			if(m_ptr)
-			{
-				m_ptr->addRef();
-			}
-			if(oldPtr)
-			{
-				oldPtr->release();
-			}
-		}
+    void operator=(const ObjectPtr<T> &val)
+    {
+        T *oldPtr = m_ptr;
+        m_ptr = val.m_ptr;
+        if (m_ptr)
+        {
+            m_ptr->addRef();
+        }
+        if (oldPtr)
+        {
+            oldPtr->release();
+        }
+    }
 
-		T* operator->() {
-			return m_ptr;
-		}
+    void operator=(T *val)
+    {
+        T *oldPtr = m_ptr;
+        m_ptr = val;
+        if (m_ptr)
+        {
+            m_ptr->addRef();
+        }
+        if (oldPtr)
+        {
+            oldPtr->release();
+        }
+    }
 
-		const T* operator->() const {
-			return m_ptr;
-		}
+    T *operator->()
+    {
+        return m_ptr;
+    }
 
-		operator T*() {
-			return m_ptr;
-		}
+    const T *operator->() const
+    {
+        return m_ptr;
+    }
 
-		operator const T*() const {
-			return m_ptr;
-		}
-	};
+    operator T *()
+    {
+        return m_ptr;
+    }
+
+    operator const T *() const
+    {
+        return m_ptr;
+    }
+};
 }
