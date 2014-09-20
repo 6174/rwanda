@@ -4,6 +4,7 @@
 #include <string>
 #include "types.h"
 #include "elementNode.h"
+#include "textNode.h"
 #include "xml_scanner.h"
 
 namespace litehtml
@@ -13,11 +14,11 @@ namespace litehtml
  */
 struct str_istream: public litehtml::instream
 {
-    const char *p;
-    const char *end;
+    const t_char *p;
+    const t_char *end;
 
-    str_istream(const char *src): p(src), end(src + strlen(src)) {}
-    virtual wchar_t get_char()
+    str_istream(const t_char *src): p(src), end(src + strlen(src)) {}
+    virtual t_char get_t_char()
     {
         return p < end ? *p++ : 0;
     }
@@ -28,9 +29,9 @@ struct str_istream: public litehtml::instream
  */
 struct tags_parse_data
 {
-    const char *tag;
-    const char *parents;
-    const char *stop_parent;
+    const t_char *tag;
+    const t_char *parents;
+    const t_char *stop_parent;
 };
 
 /**
@@ -46,11 +47,11 @@ struct css_text
 
     css_text() {}
 
-    css_text(const char *txt, const char *url, const char *media_str)
+    css_text(const t_char *txt, const t_char *url, const t_char *media_str)
     {
-        text    = txt ? txt : _t("");
-        baseurl = url ? url : _t("");
-        media   = media_str ? media_str : _t("");
+//        text    = txt ? txt : _t("");
+//        baseurl = url ? url : _t("");
+//        media   = media_str ? media_str : _t("");
     }
 
     css_text(const css_text &val)
@@ -70,28 +71,31 @@ private:
     ElementNode::Ptr                    m_root;
     ElementNode::ElementNodeVector      m_parse_stack;
     css_text::vector                    m_css;
+    // 用于记录文本节点
+    tstring                             m_tmpString;
 public:
     typedef litehtml::ObjectPtr<Document> Ptr;
-    static litehtml::Document::Ptr createFromString(const char* str);
+    static litehtml::Document::Ptr parseHtml(const t_char* str);
 public:
     Document();
     virtual ~Document();
-    ElementNode::Ptr createElementByTagName(char* tagName);
+    ElementNode::Ptr createElementByTagName(const t_char* tagName);
 private:
     void beginParse();
-    void parseTagStart(const char* tagName);
-    void parseTagEnd(const char* tagName);
-    void parseAttribute(const char* attrName, const wchar* attrValue);
-    void parseWord(const wchar* val);
-    void parseSpace(const wchar* val);
+    void parseTagStart(const t_char* tagName);
+    void parseTagEnd(const t_char* tagName);
+    void parseAttribute(const t_char* attrName, const t_char* attrValue);
+    void parseWord(const t_char* val);
+    void parseSpace(const t_char* val);
     void parseCommentStart();
     void parseCommentEnd();
-    void parseData(const wchar* val);
+    void parseData(const t_char* val);
     void pushElement(ElementNode::Ptr node);
     bool popElement();
-    bool popElement(const char* tag, const char* stopTags = _t(""));
     void popEmptyElement();
-    void popToParent(const char* parents, const char* stopParent);
+    void popToParent(const t_char* parents, const t_char* stopParent);
+    // 测试打印构造的dom 树结构
+    void dump();
 };
 }
 

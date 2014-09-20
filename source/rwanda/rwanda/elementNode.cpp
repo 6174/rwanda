@@ -11,7 +11,7 @@
 /**
  * 构造函数
  */
-litehtml::ElementNode::ElementNode(char* guid,char *tagName)
+litehtml::ElementNode::ElementNode(t_char* guid,const t_char *tagName)
 {
     this->m_id = guid;
     this->nodeName = tagName;
@@ -56,6 +56,20 @@ void litehtml::ElementNode::appendChild(litehtml::Node *node)
 litehtml::Node::NodeVector &litehtml::ElementNode::children()
 {
     return m_children;
+}
+
+/**
+ * 设置属性
+ */
+void litehtml::ElementNode::setAttribute(const t_char* name, const t_char* val)
+{
+    
+}
+
+const t_char* litehtml::ElementNode::getAttribute(const t_char *name)
+{
+    const t_char* str = "asdfa";
+    return str;
 }
 
 

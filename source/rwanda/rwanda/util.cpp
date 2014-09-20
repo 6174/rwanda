@@ -30,7 +30,7 @@ void litehtml::lcase(tstring &s)
 	}
 }
 
-int litehtml::value_index( const tstring& val, const tstring& strings, int defValue, char delim )
+int litehtml::value_index( const tstring& val, const tstring& strings, int defValue, t_char delim )
 {
 	if(val.empty() || strings.empty() || !delim)
     {
@@ -67,7 +67,7 @@ int litehtml::value_index( const tstring& val, const tstring& strings, int defVa
 	return defValue;
 }
 
-int litehtml::value_in_list( const tstring& val, const tstring& strings, char delim )
+int litehtml::value_in_list( const tstring& val, const tstring& strings, t_char delim )
 {
 	int idx = value_index(val, strings, -1, delim);
 	if(idx >= 0)
@@ -77,10 +77,10 @@ int litehtml::value_in_list( const tstring& val, const tstring& strings, char de
 	return false;
 }
 
-char* litehtml::guid()
+t_char* litehtml::guid()
 {
     srand(time(NULL));
-    static char buf[64] = {0};
+    static t_char buf[64] = {0};
     snprintf(buf, sizeof(buf) ,
              "{%08X-%04X-%04X-%04X-%04X%04X%04X}" ,
              rand()&0xffffffff,
@@ -89,5 +89,5 @@ char* litehtml::guid()
              rand()&0xffff,
              rand()&0xffff, rand()&0xffff, rand()&0xffff
              );
-    return (char*)buf;
+    return (t_char*)buf;
 }

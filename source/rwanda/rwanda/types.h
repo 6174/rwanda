@@ -19,9 +19,9 @@
 #define t_tolower           tolower
 #define t_isdigit           isdigit
 typedef std::string         tstring;
-typedef void               *uintPtr;
+typedef void                *uintPtr;
 typedef unsigned char       byte;
-typedef wchar_t wchar;
+typedef char                t_char;
 
 namespace litehtml
 {

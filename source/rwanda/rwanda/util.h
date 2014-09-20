@@ -15,13 +15,16 @@ namespace litehtml
 {
     
     // 判断字符串val是否包含在string是中
-    int value_in_list(const tstring& val, const tstring& strings, char delim = _t(';'));
-
+    int value_in_list(const tstring& val, const tstring& strings, t_char delim = _t(';'));
+    
+    // 去除字符串padding
     void trim(tstring &s);
+    
+    // 字符串转小写
     void lcase(tstring &s);
     
-    int value_index(const tstring& val, const tstring& strings, int defValue = -1, char delim = _t(';'));
-    char* guid();
+    // 字符串strings中查找子串val的位置
+    int value_index(const tstring& val, const tstring& strings, int defValue = -1, t_char delim = _t(';'));
+    t_char* guid();
 }
-
 #endif

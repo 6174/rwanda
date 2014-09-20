@@ -53,50 +53,50 @@ void litehtml::tokenize ( const tstring& str,
 		result.clear();
 	}
 
-	tstring::size_type pos = 0; // the current position (char) in the string
-	char ch = 0; // buffer for the current character
-	char delimiter = 0;	// the buffer for the delimiter char which
+	tstring::size_type pos = 0; // the current position (t_char) in the string
+	t_char ch = 0; // buffer for the current t_character
+	t_char delimiter = 0;	// the buffer for the delimiter t_char which
 							// will be added to the tokens if the delimiter
 							// is preserved
-	char current_quote = 0; // the char of the current open quote
+	t_char current_quote = 0; // the t_char of the current open quote
 	bool quoted = false; // indicator if there is an open quote
 	tstring token;  // string buffer for the token
 	bool token_complete = false; // indicates if the current token is
 								 // read to be added to the result vector
 	tstring::size_type len = str.length();  // length of the input-string
 
-	// for every char in the input-string
+	// for every t_char in the input-string
 	while ( len > pos )
 	{
-		// get the character of the string and reset the delimiter buffer
+		// get the t_character of the string and reset the delimiter buffer
 		ch = str.at(pos);
 		delimiter = 0;
 
 		// assume ch isn't a delimiter
-		bool add_char = true;
+		bool add_t_char = true;
 
 		// check ...
 
-		// ... if the delimiter is an escaped character
-		bool escaped = false; // indicates if the next char is protected
-		if ( false == esc.empty() ) // check if esc-chars are  provided
+		// ... if the delimiter is an escaped t_character
+		bool escaped = false; // indicates if the next t_char is protected
+		if ( false == esc.empty() ) // check if esc-t_chars are  provided
 		{
 			if ( tstring::npos != esc.find_first_of(ch) )
 			{
-				// get the escaped char
+				// get the escaped t_char
 				++pos;
-				if ( pos < len ) // if there are more chars left
+				if ( pos < len ) // if there are more t_chars left
 				{
 					// get the next one
 					ch = str.at(pos);
 
-					// add the escaped character to the token
-					add_char = true;
+					// add the escaped t_character to the token
+					add_t_char = true;
 				}
-				else // cannot get any more characters
+				else // cannot get any more t_characters
 				{
-					// don't add the esc-char
-					add_char = false;
+					// don't add the esc-t_char
+					add_t_char = false;
 				}
 
 				// ignore the remaining delimiter checks
@@ -107,11 +107,11 @@ void litehtml::tokenize ( const tstring& str,
 		// ... if the delimiter is a quote
 		if ( false == quote.empty() && false == escaped )
 		{
-			// if quote chars are provided and the char isn't protected
+			// if quote t_chars are provided and the t_char isn't protected
 			if ( tstring::npos != quote.find_first_of(ch) )
 			{
 				// if not quoted, set state to open quote and set
-				// the quote character
+				// the quote t_character
 				if ( false == quoted )
 				{
 					quoted = true;
@@ -127,22 +127,22 @@ void litehtml::tokenize ( const tstring& str,
 						current_quote = _t('}');
 					} else
 					{
-						// don't add the quote-char to the token
-						add_char = false;
+						// don't add the quote-t_char to the token
+						add_t_char = false;
 					}
 
 				}
 				else // if quote is open already
 				{
-					// check if it is the matching character to close it
+					// check if it is the matching t_character to close it
 					if ( current_quote == ch )
 					{
-						// close quote and reset the quote character
+						// close quote and reset the quote t_character
 						quoted = false;
 						if(current_quote != _t(')') && current_quote != _t(']') && current_quote != _t('}'))
 						{
-							// don't add the quote-char to the token
-							add_char = false;
+							// don't add the quote-t_char to the token
+							add_t_char = false;
 						}
 						current_quote = 0;
 					}
@@ -154,8 +154,8 @@ void litehtml::tokenize ( const tstring& str,
 		if ( false == delimiters.empty() && false == escaped &&
 			 false == quoted )
 		{
-			// if a delimiter is provided and the char isn't protected by
-			// quote or escape char
+			// if a delimiter is provided and the t_char isn't protected by
+			// quote or escape t_char
 			if ( tstring::npos != delimiters.find_first_of(ch) )
 			{
 				// if ch is a delimiter and the token string isn't empty
@@ -166,7 +166,7 @@ void litehtml::tokenize ( const tstring& str,
 				}
 
 				// don't add the delimiter to the token
-				add_char = false;
+				add_t_char = false;
 			}
 		}
 
@@ -176,7 +176,7 @@ void litehtml::tokenize ( const tstring& str,
 			 false == quoted )
 		{
 			// if a delimiter which will be preserved is provided and the
-			// char isn't protected by quote or escape char
+			// t_char isn't protected by quote or escape t_char
 			if ( tstring::npos != delimiters_preserve.find_first_of(ch) )
 			{
 				// if ch is a delimiter and the token string isn't empty
@@ -187,7 +187,7 @@ void litehtml::tokenize ( const tstring& str,
 				}
 
 				// don't add the delimiter to the token
-				add_char = false;
+				add_t_char = false;
 
 				// add the delimiter
 				delimiter = ch;
@@ -196,10 +196,10 @@ void litehtml::tokenize ( const tstring& str,
 		}
 
 
-		// add the character to the token
-		if ( true == add_char )
+		// add the t_character to the token
+		if ( true == add_t_char )
 		{
-			// add the current char
+			// add the current t_char
 			token.push_back( ch );
 		}
 
@@ -227,7 +227,7 @@ void litehtml::tokenize ( const tstring& str,
 			// REMOVED: 2006-03-04, Bugfix
 		}
 
-		// repeat for the next character
+		// repeat for the next t_character
 		++pos;
 	} // while
 

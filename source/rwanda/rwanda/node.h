@@ -1,3 +1,6 @@
+
+
+
 //
 //  node.h
 //  rwanda
@@ -9,6 +12,7 @@
 #ifndef rwanda_node_h
 #define rwanda_node_h
 #include "object.h"
+#include "types.h"
 #include <vector>
 namespace litehtml
 {
@@ -28,7 +32,7 @@ public:
     };
 
     NodeType nodeType;
-    char *nodeName;
+    const t_char *nodeName;
 
 public:
     Node();

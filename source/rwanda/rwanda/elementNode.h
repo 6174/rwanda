@@ -23,20 +23,22 @@ public:
 private:
     Node::NodeVector m_children;
     Node*            m_parentNode;
-    char*            m_id;
+    const t_char*            m_id;
 public:
-    ElementNode(char* guid,char *tagName);
+    ElementNode(){}
+    ElementNode(t_char* guid,const t_char *tagName);
     ~ElementNode();
-    virtual Node               *parentNode();
+    virtual Node                *parentNode();
     virtual void                parentNode(Node *node);
-    virtual Node::NodeVector   &children();
+    virtual Node::NodeVector    &children();
     virtual void                appendChild(Node *node);
-
-    //   virtual const char*           get_tagName() const;
-    //      virtual void                set_tagName(const char* tag);
-    //        virtual void              set_attr(const char* name, const char* val);
-    //      virtual const char*         get_attr(const char* name, const char* def = 0);
-    //        virtual const char*           get_style_property(const char* name, bool inherited, const char* def = 0);
+    virtual void                setAttribute(const t_char* name, const t_char* val);
+    virtual const t_char*         getAttribute(const t_char* name);
+    //   virtual const t_char*           get_tagName() const;
+    //      virtual void                set_tagName(const t_char* tag);
+    
+    //
+    //        virtual const t_char*           get_style_property(const t_char* name, bool inherited, const t_char* def = 0);
 
     //      virtual int                 select(const css_selector& selector, bool apply_pseudo = true);
     //      virtual int                 select(const css_element_selector& selector, bool apply_pseudo = true);

@@ -7,7 +7,7 @@
 //| (C) Andrew Fedoniouk @ terrainformatica.com
 //|
 
-#include <stdlib.h> // wchar_t
+#include <stdlib.h> // t_char_t
 #include <string.h> // strcmp, etc.
 #include "types.h"
 
@@ -15,7 +15,7 @@ namespace litehtml
 {
   struct instream 
   {
-    virtual wchar get_char() = 0;
+    virtual t_char get_t_char() = 0;
   };
 
 
@@ -53,7 +53,7 @@ namespace litehtml
   
     scanner(instream& is): 
         input(is), 
-        input_char(0), 
+        input_t_char(0), 
         value_length(0), 
         tag_name_length(0), 
         attr_name_length(0),
@@ -63,16 +63,16 @@ namespace litehtml
     token_type      get_token() { return (this->*c_scan)(); } 
     
     // get value of TT_WORD, TT_SPACE, TT_ATTR and TT_DATA
-    const wchar*    get_value();
+    const t_char*    get_value();
       
     // get attribute name
-    const char*     get_attr_name();
+    const t_char*     get_attr_name();
     
     // get tag name
-    const char*     get_tag_name();
+    const t_char*     get_tag_name();
     
     // should be overrided to resolve entities, e.g. &nbsp;
-    virtual wchar   resolve_entity(const char* buf, int buf_size) { return 0; }
+    virtual t_char   resolve_entity(const t_char* buf, int buf_size) { return 0; }
         
   private: /* methods */
 
@@ -88,17 +88,17 @@ namespace litehtml
     token_type  scan_tag();
     token_type  scan_entity_decl();
 
-    wchar       skip_whitespace();
-    void        push_back(wchar c);
+    t_char       skip_whitespace();
+    void        push_back(t_char c);
   
-    wchar       get_char();
-    wchar       scan_entity();
+    t_char       get_t_char();
+    t_char       scan_entity();
 
-    bool        is_whitespace(wchar c);
+    bool        is_whitespace(t_char c);
       
-    void        append_value(wchar c);
-    void        append_attr_name(wchar c);
-    void        append_tag_name(wchar c);
+    void        append_value(t_char c);
+    void        append_attr_name(t_char c);
+    void        append_tag_name(t_char c);
 
   private: /* data */
 
@@ -106,17 +106,17 @@ namespace litehtml
     //state       where;
     token_type  token;
 
-    wchar       value[MAX_TOKEN_SIZE];
+    t_char       value[MAX_TOKEN_SIZE];
     int         value_length;
 
-    char        tag_name[MAX_NAME_SIZE];
+    t_char        tag_name[MAX_NAME_SIZE];
     int         tag_name_length;
 
-    char        attr_name[MAX_NAME_SIZE];
+    t_char        attr_name[MAX_NAME_SIZE];
     int         attr_name_length;
   
     instream&   input;
-    wchar       input_char; 
+    t_char       input_t_char; 
 
     bool        got_tail; // aux flag used in scan_comment, etc. 
 

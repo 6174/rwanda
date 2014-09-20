@@ -17,7 +17,7 @@ litehtml::Document::~Document()
 /**
  * 工厂函数， 通过HTML字符串创建document实例对象
  */
-litehtml::Document::Ptr litehtml::Document::createFromString(const char *str)
+litehtml::Document::Ptr litehtml::Document::parseHtml(const t_char *str)
 {
     // 创建document对象
     litehtml::Document::Ptr doc = new litehtml::Document();
@@ -25,7 +25,7 @@ litehtml::Document::Ptr litehtml::Document::createFromString(const char *str)
     // 穿件字符流读入
     str_istream si(str);
     
-    // 穿件scanner
+    // 创建scanner
     scanner sc(si);
     
     // 开始解析，生产root节点
@@ -79,7 +79,7 @@ litehtml::Document::Ptr litehtml::Document::createFromString(const char *str)
                 break;
             // 属性开始
             case  scanner::TT_ATTR:
-                printf("\tATTR:%s=%S\n", sc.get_attr_name(), sc.get_value());
+                printf("\tATTR:%s=%s\n", sc.get_attr_name(), sc.get_value());
                 {
                     tmp_str = sc.get_tag_name();
                     lcase(tmp_str);
@@ -88,11 +88,12 @@ litehtml::Document::Ptr litehtml::Document::createFromString(const char *str)
                 break;
             // 单词
             case  scanner::TT_WORD:
+                printf("\tWORD:%s\n", sc.get_value());
                 doc->parseWord(sc.get_value());
                 break;
             // 空格
             case  scanner::TT_SPACE:
-                printf("{%S}\n", sc.get_value());
+//                printf("{%S}\n", sc.get_value());
                 doc->parseSpace(sc.get_value());
                 break;
             // 错误
@@ -102,28 +103,31 @@ litehtml::Document::Ptr litehtml::Document::createFromString(const char *str)
                 break;
             // 结束
             case scanner::TT_EOF:
-                printf("EOF\n");
+                printf("EOFA\n");
                 isEnd = true;
                 break;
         }
     }
+    doc->dump();
     return doc;
 }
 
 /**
  * 初始化根节点
  */
-void litehtml::Document::beginParse() {
-    char* tagName("div");
+void litehtml::Document::beginParse()
+{
+    const t_char* tagName("div");
     m_root = createElementByTagName(tagName);
     m_parse_stack.push_back(m_root);
 }
 
 /**
- * 根据tag name 来穿件节点
+ * 根据tag name 来创建件节点
  */
-litehtml::ElementNode::Ptr litehtml::Document::createElementByTagName(char* tagName) {
-    char* id = litehtml::guid();
+litehtml::ElementNode::Ptr litehtml::Document::createElementByTagName(const t_char* tagName)
+{
+    t_char* id = litehtml::guid();
     litehtml::ElementNode::Ptr element = new litehtml::ElementNode(id, tagName);
     return element;
 }
@@ -131,57 +135,128 @@ litehtml::ElementNode::Ptr litehtml::Document::createElementByTagName(char* tagN
 /**
  * 解析标签开始
  */
-void litehtml::Document::parseTagStart(const char* tagName) {
+void litehtml::Document::parseTagStart(const t_char* tagName)
+{
+    litehtml::ElementNode::Ptr element = new litehtml::ElementNode(litehtml::guid(), tagName);
+    pushElement(element);
+}
+
+/**
+ * 解析标签结束
+ */
+void litehtml::Document::parseTagEnd(const t_char *tagName)
+{
+    if (!m_parse_stack.empty())
+    {
+        // tagName 和 上一个元素tagName相同
+        if (!t_strcmp(m_parse_stack.back()->nodeName, tagName))
+        {
+            litehtml::TextNode::Ptr textNode = new litehtml::TextNode(m_tmpString);
+            std::cout << "\t TEXT" << m_tmpString << std::endl;
+            m_tmpString = "";
+            m_parse_stack.back()->appendChild(textNode);
+            popElement();
+        }
+        else
+        {
+            printf("how can it be diferent %s", tagName);
+        }
+    }
+}
+
+/**
+ * 解析属性
+ */
+void litehtml::Document::parseAttribute(const t_char *attrName, const t_char *attrValue)
+{
+    if (!m_parse_stack.empty()) {
+        m_parse_stack.back()->setAttribute(attrName, attrValue);
+    }
+}
+
+/**
+ * 遇到单词
+ */
+void litehtml::Document::parseWord(const t_char *val) {
+//    tstring tmp(val);
+//    m_tmpString += tmp;
+//    std::cout << "\t\t VAL " << m_tmpString << std::endl;
+}
+
+/**
+ * 遇到空格
+ */
+void litehtml::Document::parseSpace(const t_char *val)
+{
+    m_tmpString += *val;
+}
+
+void litehtml::Document::parseCommentStart()
+{
     
 }
 
-void litehtml::Document::parseTagEnd(const char *tagName) {
+void litehtml::Document::parseCommentEnd()
+{
     
 }
 
-void litehtml::Document::parseAttribute(const char *attrName, const wchar *attrValue) {
+void litehtml::Document::parseData(const t_char *val)
+{
     
 }
 
-void litehtml::Document::parseWord(const wchar *val) {
+/**
+ * 往stack里边push元素节点
+ */
+void litehtml::Document::pushElement(ElementNode::Ptr node)
+{
+    if (!m_parse_stack.empty())
+    {
+        m_parse_stack.back()->appendChild(node);
+        m_parse_stack.push_back(node);
+    }
+}
+
+/**
+ * stack pop 元素
+ */
+bool litehtml::Document::popElement()
+{
+    if (!m_parse_stack.empty()) {
+        m_parse_stack.pop_back();
+        return true;
+    }
+    return false;
+}
+
+
+void litehtml::Document::popEmptyElement()
+{
     
 }
 
-void litehtml::Document::parseSpace(const wchar *val) {
+void litehtml::Document::popToParent(const t_char *parents, const t_char *stopParent)
+{
     
 }
 
-void litehtml::Document::parseCommentStart() {
+
+void litehtml::Document::dump()
+{
+    litehtml::TextNode::Ptr textNode = new litehtml::TextNode("hellotext");
     
-}
-
-void litehtml::Document::parseCommentEnd() {
+    litehtml::Node *node = textNode;
     
+    litehtml::TextNode *a;
+    a = dynamic_cast<litehtml::TextNode *>(node);
+    if (a) {
+        tstring str = a->text();
+        std::cout << str;
+    }
 }
 
-void litehtml::Document::parseData(const wchar *val) {
-    
-}
 
-void litehtml::Document::pushElement(ElementNode::Ptr node) {
-    
-}
-
-bool litehtml::Document::popElement() {
-    return true;
-}
-
-bool litehtml::Document::popElement(const char *tag, const char* stopTags) {
-    return true;
-}
-
-void litehtml::Document::popEmptyElement() {
-    
-}
-
-void litehtml::Document::popToParent(const char *parents, const char *stopParent) {
-    
-}
 
 
 

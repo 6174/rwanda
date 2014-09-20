@@ -6,7 +6,7 @@ namespace litehtml
 {
     // case sensitive string equality test
     // s_lowcase shall be lowercase string
-    inline bool equal(const char* s, const char* s1, size_t length)
+    inline bool equal(const t_char* s, const t_char* s1, size_t length)
     {
       switch(length)
       {
@@ -23,19 +23,19 @@ namespace litehtml
       }
     }
 
-    const wchar* scanner::get_value() 
+    const t_char* scanner::get_value() 
     {
       value[value_length] = 0;
       return value;
     }
 
-    const char* scanner::get_attr_name() 
+    const t_char* scanner::get_attr_name() 
     {
       attr_name[attr_name_length] = 0;
       return attr_name;
     }
 
-    const char* scanner::get_tag_name() 
+    const t_char* scanner::get_tag_name() 
     {
       tag_name[tag_name_length] = 0;
       return tag_name;
@@ -43,7 +43,7 @@ namespace litehtml
         
     scanner::token_type scanner::scan_body() 
     {
-      wchar c = get_char();
+      t_char c = get_t_char();
 
       value_length = 0;
          
@@ -59,7 +59,7 @@ namespace litehtml
       while(true) 
       {
         append_value(c);
-        c = input.get_char();
+        c = input.get_t_char();
         if(c == 0)  { push_back(c); break; }
         if(c == '<') { push_back(c); break; }
         if(c == '&') { push_back(c); break; }
@@ -76,12 +76,12 @@ namespace litehtml
 
     scanner::token_type scanner::scan_head()
     {
-      wchar c = skip_whitespace();
+      t_char c = skip_whitespace();
 
       if(c == '>') { c_scan = &scanner::scan_body; return scan_body(); }
       if(c == '/')
       {
-         wchar t = get_char();
+         t_char t = get_t_char();
          if(t == '>')   { c_scan = &scanner::scan_body; return TT_TAG_END_EMPTY; }
          else { push_back(t); return TT_ERROR; } // erroneous situtation - standalone '/'
       }
@@ -102,21 +102,21 @@ namespace litehtml
         }
         if( c == '<') return TT_ERROR;
         append_attr_name(c);
-        c = get_char();
+        c = get_t_char();
       }
 
       c = skip_whitespace();
       // attribute value...
       
       if(c == '\"')
-        while(c = get_char())
+        while((c = get_t_char()))
         {
             if(c == '\"') return TT_ATTR;
             if(c == '&') c = scan_entity();
             append_value(c);
         }
       else if(c == '\'') // allowed in html
-        while(c = get_char())
+        while((c = get_t_char()))
         {
             if(c == '\'') return TT_ATTR;
             if(c == '&') c = scan_entity();
@@ -131,7 +131,7 @@ namespace litehtml
             if( c == '&' ) c = scan_entity();*/
             if( c == '>' ) { push_back(c); return TT_ATTR; }
             append_value(c);
-        } while(c = get_char());
+        } while((c = get_t_char()));
 
       return TT_ERROR;
     }
@@ -142,10 +142,10 @@ namespace litehtml
     {
       tag_name_length = 0;
 
-      wchar c = get_char();
+      t_char c = get_t_char();
 
       bool is_tail = c == '/';
-      if(is_tail) c = get_char();
+      if(is_tail) c = get_t_char();
       
       while(c) 
       {
@@ -166,7 +166,7 @@ namespace litehtml
           break;
         }
 
-        c = get_char();
+        c = get_t_char();
       }
  
       if(c == 0) return TT_ERROR;    
@@ -184,34 +184,34 @@ namespace litehtml
     }
 
     // skip whitespaces.
-    // returns first non-whitespace char
-    wchar scanner::skip_whitespace() 
+    // returns first non-whitespace t_char
+    t_char scanner::skip_whitespace() 
     {
-        while(wchar c = get_char()) 
+        while(t_char c = get_t_char()) 
         {
             if(!is_whitespace(c)) return c;
         }
         return 0;
     }
 
-    void    scanner::push_back(wchar c) { input_char = c; }
+    void    scanner::push_back(t_char c) { input_t_char = c; }
 
-    wchar scanner::get_char() 
+    t_char scanner::get_t_char() 
     { 
-      if(input_char) { wchar t(input_char); input_char = 0; return t; }
-      return input.get_char();
+      if(input_t_char) { t_char t(input_t_char); input_t_char = 0; return t; }
+      return input.get_t_char();
     }
 
 
     // caller consumed '&'
-    wchar scanner::scan_entity() 
+    t_char scanner::scan_entity() 
     {
-      char buf[32];
+      t_char buf[32];
       int i = 0;
-      wchar t;
+      t_char t;
       for(; i < 31 ; ++i )
       {
-        t = get_char();
+        t = get_t_char();
         if(t == 0) return TT_EOF;
         if( !isalnum(t) )
         {
@@ -219,7 +219,7 @@ namespace litehtml
           break; // appears a erroneous entity token.
                  // but we try to use it.
         }
-        buf[i] = char(t); 
+        buf[i] = t_char(t); 
         if(t == ';')
           break;
       }
@@ -245,28 +245,28 @@ namespace litehtml
       return ';';
     }
 
-    bool scanner::is_whitespace(wchar c)
+    bool scanner::is_whitespace(t_char c)
     {
         return c <= ' ' 
             && (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f');
     }
 
-    void scanner::append_value(wchar c) 
+    void scanner::append_value(t_char c) 
     { 
       if(value_length < (MAX_TOKEN_SIZE - 1)) 
         value[value_length++] = c;
     }
 
-    void scanner::append_attr_name(wchar c)
+    void scanner::append_attr_name(t_char c)
     {
       if(attr_name_length < (MAX_NAME_SIZE - 1)) 
-        attr_name[attr_name_length++] = char(c);
+        attr_name[attr_name_length++] = t_char(c);
     }
 
-    void scanner::append_tag_name(wchar c)
+    void scanner::append_tag_name(t_char c)
     {
       if(tag_name_length < (MAX_NAME_SIZE - 1)) 
-        tag_name[tag_name_length++] = char(c);
+        tag_name[tag_name_length++] = t_char(c);
     }
 
     scanner::token_type scanner::scan_comment()
@@ -279,7 +279,7 @@ namespace litehtml
       }
       for(value_length = 0; value_length < (MAX_TOKEN_SIZE - 1); ++value_length)
       {
-        wchar c = get_char();
+        t_char c = get_t_char();
         if( c == 0) return TT_EOF;
         value[value_length] = c;
         
@@ -306,7 +306,7 @@ namespace litehtml
       }
       for(value_length = 0; value_length < (MAX_TOKEN_SIZE - 1); ++value_length)
       {
-        wchar c = get_char();
+        t_char c = get_t_char();
         if( c == 0) return TT_EOF;
         value[value_length] = c;
 
@@ -333,7 +333,7 @@ namespace litehtml
       }
       for(value_length = 0; value_length < (MAX_TOKEN_SIZE - 1); ++value_length)
       {
-        wchar c = get_char();
+        t_char c = get_t_char();
         if( c == 0) return TT_EOF;
         value[value_length] = c;
 
@@ -357,11 +357,11 @@ namespace litehtml
         got_tail = false;
         return TT_ENTITY_END;
       }
-      wchar t;
+      t_char t;
       unsigned int tc = 0;
       for(value_length = 0; value_length < (MAX_TOKEN_SIZE - 1); ++value_length)
       {
-        t = get_char();
+        t = get_t_char();
         if( t == 0 ) return TT_EOF;
         value[value_length] = t;
         if(t == '\"') tc++;
